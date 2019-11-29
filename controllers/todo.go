@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"fmt"
+	"github.com/gorilla/mux"
 	"github.com/ichtrojan/go-todo/config"
 	"github.com/ichtrojan/go-todo/models"
 	"html/template"
@@ -12,7 +13,7 @@ var (
 	id        int
 	item      string
 	completed int
-	tmpl      = template.Must(template.ParseFiles("./views/index.html"))
+	view      = template.Must(template.ParseFiles("./views/index.html"))
 	database  = config.Database()
 )
 
@@ -45,7 +46,7 @@ func Show(w http.ResponseWriter, r *http.Request) {
 		Todos: todos,
 	}
 
-	_ = tmpl.Execute(w, data)
+	_ = view.Execute(w, data)
 }
 
 func Add(w http.ResponseWriter, r *http.Request) {
@@ -53,6 +54,19 @@ func Add(w http.ResponseWriter, r *http.Request) {
 	item := r.FormValue("item")
 
 	_, err := database.Exec(`INSERT INTO todos (item) VALUE (?)`, item)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	http.Redirect(w, r, "/", 301)
+}
+
+func Delete(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+
+	_, err := database.Exec(`DELETE FROM todos WHERE id = ?`, id)
 
 	if err != nil {
 		fmt.Println(err)
