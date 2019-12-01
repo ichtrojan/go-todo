@@ -5,3 +5,10 @@
 ## Introduction
 
 A simple todolist application written in Go 
+
+## Requirements
+* MySQL installed
+* Go installed
+
+## Left to do
+* Setup env for configurations 
