@@ -54,7 +54,7 @@
                                 <td>{{.Item}}</td>
                                 <td>Not Completed</td>
                                 <td>
-                                    <button class="btn btn-primary">Complete</button>
+                                    <a href="/complete/{{ .Id}}"><button class="btn btn-primary">Complete</button></a>
                                     <a href="/delete/{{ .Id}}"><button class="btn btn-danger">Delete</button></a>
                                 </td>
                             </tr>
