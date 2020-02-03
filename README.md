@@ -15,7 +15,7 @@ A simple todolist application written in Go
 * Clone this repo 
 
 ```bash
-git clone https://github.com/ichtrojan/go/-todo.git
+git clone https://github.com/ichtrojan/go-todo.git
 ```
 
 * Change Directory
