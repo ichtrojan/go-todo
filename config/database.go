@@ -46,7 +46,7 @@ func Database() *sql.DB {
 		fmt.Println("Database Connection Successful")
 	}
 
-	_, err = database.Exec(`CREATE DATABASE gotodo`)
+	_, err = database.Exec(`CREATE DATABASE IF NOT EXISTS gotodo`)
 
 	if err != nil {
 		fmt.Println(err)
@@ -59,7 +59,7 @@ func Database() *sql.DB {
 	}
 
 	_, err = database.Exec(`
-		CREATE TABLE todos (
+		CREATE TABLE IF NOT EXISTS todos (
 		    id INT AUTO_INCREMENT,
 		    item TEXT NOT NULL,
 		    completed BOOLEAN DEFAULT FALSE,
