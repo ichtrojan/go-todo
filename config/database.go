@@ -4,11 +4,13 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"log"
+	"os"
+	"time"
+
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/ichtrojan/thoth"
 	_ "github.com/joho/godotenv/autoload"
-	"log"
-	"os"
 )
 
 func Database() *sql.DB {
@@ -44,6 +46,11 @@ func Database() *sql.DB {
 		log.Fatal(err)
 	} else {
 		fmt.Println("Database Connection Successful")
+	}
+
+	for database.Ping() != nil {
+		fmt.Println("Waiting for the database to be ready")
+		time.Sleep(time.Second * 2)
 	}
 
 	_, err = database.Exec(`CREATE DATABASE gotodo`)

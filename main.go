@@ -2,12 +2,13 @@ package main
 
 import (
 	"errors"
-	"github.com/ichtrojan/go-todo/routes"
-	"github.com/ichtrojan/thoth"
-	"github.com/joho/godotenv"
 	"log"
 	"net/http"
 	"os"
+
+	"github.com/ichtrojan/go-todo/routes"
+	"github.com/ichtrojan/thoth"
+	"github.com/joho/godotenv"
 )
 
 func main() {
@@ -25,7 +26,7 @@ func main() {
 		log.Fatal("PORT not set in .env")
 	}
 
-	err := http.ListenAndServe(":"+port, routes.Init())
+	err := http.ListenAndServe("0.0.0.0:"+port, routes.Init())
 
 	if err != nil {
 		logger.Log(err)

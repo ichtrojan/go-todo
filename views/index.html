@@ -1,69 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css"
-          integrity="sha384-SI27wrMjH3ZZ89r4o+fGIJtnzkAnFs3E4qz9DIYioCQ5l9Rd/7UAa8DHcaL8jkWt" crossorigin="anonymous">
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css"
+      integrity="sha384-SI27wrMjH3ZZ89r4o+fGIJtnzkAnFs3E4qz9DIYioCQ5l9Rd/7UAa8DHcaL8jkWt"
+      crossorigin="anonymous"
+    />
     <title>Todo</title>
-</head>
+  </head>
 
-<body>
-    <div style="text-align: center;"><h1>Todos</h1></div>
+  <body>
+    <div style="text-align: center"><h1>Todos</h1></div>
 
     <div class="container">
-        <div class="card">
-            <div class="card-header">Add a task</div>
-            <div class="card-body">
-                <form action="/add" method="post">
-                    <div class="form-group">
-                        <label for="Item">Item</label>
-                        <input type="text" class="form-control" name="item" placeholder="What do you want to do?">
-                        <small class="form-text text-muted">Enter what you want to procastinate 🙂</small>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+      <div class="card">
+        <div class="card-header">Add a task</div>
+        <div class="card-body">
+          <form action="/add" method="post">
+            <div class="form-group">
+              <label for="Item">Item</label>
+              <input
+                type="text"
+                class="form-control"
+                name="item"
+                placeholder="What do you want to do?"
+              />
+              <small class="form-text text-muted"
+                >Enter what you want to procastinate 🙂</small
+              >
             </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
         </div>
+      </div>
     </div>
-    &nbsp;
-    &nbsp;
+    &nbsp; &nbsp;
     <div class="container">
-        <div class="card">
-            <div class="card-header">Tasks</div>
-            <div class="card-body">
-                <table class="table table-borderless">
-                    <thead>
-                    <tr>
-                        <th scope="col">Item</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {{range .Todos}}
-                        {{if .Completed}}
-                            <tr>
-                                <td><strike>{{.Item}}</strike></td>
-                                <td>Completed</td>
-                                <td>
-                                    <button class="btn btn-primary" disabled>Complete</button>
-                                    <button class="btn btn-danger" disabled>Delete</button>
-                                </td>
-                            </tr>
-                        {{else}}
-                            <tr>
-                                <td>{{.Item}}</td>
-                                <td>Not Completed</td>
-                                <td>
-                                    <a href="/complete/{{ .Id}}"><button class="btn btn-primary">Complete</button></a>
-                                    <a href="/delete/{{ .Id}}"><button class="btn btn-danger">Delete</button></a>
-                                </td>
-                            </tr>
-                        {{end}}
-                    {{end}}
-                    </tbody>
-                </table>
-            </div>
+      <div class="card">
+        <div class="card-header">Tasks</div>
+        <div class="card-body">
+          <table class="table table-borderless">
+            <thead>
+              <tr>
+                <th scope="col">Item</th>
+                <th scope="col">Status</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{range .Todos}} {{if .Completed}}
+              <tr>
+                <td><strike>{{.Item}}</strike></td>
+                <td>Completed</td>
+                <td>
+                  <button class="btn btn-primary" disabled>Complete</button>
+                  <button class="btn btn-danger" disabled>Delete</button>
+                </td>
+              </tr>
+              {{else}}
+              <tr>
+                <td>{{.Item}}</td>
+                <td>Not Completed</td>
+                <td>
+                  <form
+                    action="/complete/{{ .Id}}"
+                    method="post"
+                    style="display: inline"
+                  >
+                    <button class="btn btn-primary">Complete</button>
+                  </form>
+                  <form
+                    action="/delete/{{ .Id}}"
+                    method="post"
+                    style="display: inline"
+                  >
+                    <button class="btn btn-danger">Delete</button>
+                  </form>
+                </td>
+              </tr>
+              {{end}} {{end}}
+            </tbody>
+          </table>
         </div>
+      </div>
     </div>
-</body>
+  </body>
 </html>
